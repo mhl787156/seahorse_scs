@@ -12,20 +12,24 @@ ul {
   padding: 0 0 0 8px;
 }
 
+button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .leftBox {
   float: left;
   width: 50%;
-  height: 100%;
 }
 
 .rightBox {
   float: right;
   width: 50%;
-  height: 100%;
 }
 
 .innerBox {
-  margin : 10px;
-  padding: 10px;
-  border: solid black 1px;  
+  margin : 5px;
+  padding: 5px;
+  height: calc(100vh - 200px);
+  border: solid black 1px;
 }
