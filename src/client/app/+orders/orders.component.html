@@ -1,61 +1,67 @@
 <section class="container-fluid">
   <section class="row">
     <div class= "col-md-4 sidebar">
-        <form (submit)="findOrderByRetail()">
-        <fieldset class="form-group">
-          <label for="exampleSelect1">Find Retail Order</label>
-          <button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
-          <select class="form-control" id="exampleSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </fieldset>
-      </form>
 
-      <!--<form (submit)="findOrderByWholesale()">
-        <fieldset class="form-group">-->
-      <label for="exampleSelect1">Find Wholesale Order</label>
-          <!--<button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
-          <select class="form-control" id="exampleSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>-->
-      <input [(ngModel)]="asyncSelected"
-            [typeahead]="getAsyncData(getContext())"
-            (typeaheadLoading)="changeTypeaheadLoading($event)"
-            (typeaheadNoResults)="changeTypeaheadNoResults($event)"
-            (typeaheadOnSelect)="typeaheadOnSelect($event)"
-            [typeaheadOptionsLimit]="7"
-            placeholder="Locations loaded with timeout"
-            class="form-control">
-      <div *ngIf="typeaheadLoading===true">
-          <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
-      </div>
-      <div *ngIf="typeaheadNoResults===true" class="" style="">
-          <i class="glyphicon glyphicon-remove"></i> No Results Found
-      </div>
-        <!--</fieldset>
-      </form>-->
+      <div class='nav' style="padding-bottom: 20px;">
+        <!--Find Retail Order-->
+        <div class='searchContainer'>
+          <label for="exampleSelect1">Find By Retail Order</label>
+          <input [(ngModel)]="asyncSelected"
+                [typeahead]="getAsyncData(getContext())"
+                (typeaheadLoading)="changeTypeaheadLoading($event)"
+                (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                [typeaheadOptionsLimit]="7"
+                placeholder="Retail Order Number"
+                class="form-control">
+          <div *ngIf="typeaheadLoading===true">
+              <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+          </div>
+          <div *ngIf="typeaheadNoResults===true" class="" style="">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+          </div>
+        </div>
 
-      <form (submit)="findOrderByPO()">
-        <fieldset class="form-group">
-          <label for="exampleSelect1">Find PO Number</label>
-          <button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
-          <select class="form-control" id="exampleSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </fieldset>
-      </form>
+        <!--Find wholesale order-->
+        <div class='searchContainer'>
+          <label for="exampleSelect1">Find By Wholesale Order</label>
+          <input [(ngModel)]="asyncSelected"
+                [typeahead]="getAsyncData(getContext())"
+                (typeaheadLoading)="changeTypeaheadLoading($event)"
+                (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                [typeaheadOptionsLimit]="7"
+                placeholder="Wholesale Order Number"
+                class="form-control">
+          <div *ngIf="typeaheadLoading===true">
+              <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+          </div>
+          <div *ngIf="typeaheadNoResults===true" class="" style="">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+          </div>
+        </div>
+
+        <!--Find By PO Number-->
+        <div class='searchContainer'>
+          <label for="exampleSelect1">Find By PO number</label>
+          <input [(ngModel)]="asyncSelected"
+                [typeahead]="getAsyncData(getContext())"
+                (typeaheadLoading)="changeTypeaheadLoading($event)"
+                (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                [typeaheadOptionsLimit]="7"
+                placeholder="PO Number"
+                class="form-control">
+          <div *ngIf="typeaheadLoading===true">
+              <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+          </div>
+          <div *ngIf="typeaheadNoResults===true" class="" style="">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+          </div>
+        </div>
+        
+        <button class='btn btn-default rightFindButton' type="button">Submit</button>
+      </div>
 
       <!--New Component for the Recent Orders Display-->
       <label for="recentOrdersTable">Recent Orders</label>

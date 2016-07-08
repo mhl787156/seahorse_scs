@@ -12,6 +12,10 @@
   overflow-y: scroll;
 }
 
+.searchContainer {
+  padding-bottom: 10px;
+}
+
 
 /*
  * Sidebar
