@@ -14,9 +14,13 @@ import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/components/typeahead';
 })
 export class OrdersComponent {
   public selected:string = '';
+
   public asyncSelected:string = '';
+
   public typeaheadLoading:boolean = false;
+
   public typeaheadNoResults:boolean = false;
+
   public states:Array<string> = ['Alabama', 'Alaska', 'Arizona', 'Arkansas',
     'California', 'Colorado',
     'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
@@ -30,6 +34,7 @@ export class OrdersComponent {
     'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
     'Virginia', 'Washington',
     'West Virginia', 'Wisconsin', 'Wyoming'];
+    
   public statesComplex:Array<any> = [
     {id: 1, name: 'Alabama'}, {id: 2, name: 'Alaska'}, {id: 3, name: 'Arizona'},
     {id: 4, name: 'Arkansas'}, {id: 5, name: 'California'},

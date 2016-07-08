@@ -1,14 +1,55 @@
 <section class="container-fluid">
   <section class="row">
-    <div class= "col-md-4 sidebar">
-      <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">Recent<span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Search</a></li>
-        <li><a href="#">All</a></li>
-      </ul>
+    <div class= "col-md-2 sidebar">
+
+      <div class='nav' style="padding-bottom: 20px;">
+        <!--Find Retail Order-->
+        <div class='searchContainer'>
+          <label for="exampleSelect1">Find By Name</label>
+          <input [(ngModel)]="asyncSelected"
+                [typeahead]="getAsyncData(getContext())"
+                (typeaheadLoading)="changeTypeaheadLoading($event)"
+                (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                [typeaheadOptionsLimit]="7"
+                placeholder="Name"
+                class="form-control">
+          <div *ngIf="typeaheadLoading===true">
+              <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+          </div>
+          <div *ngIf="typeaheadNoResults===true" class="" style="">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+          </div>
+        </div>
+
+        <!--Find wholesale order-->
+        <div class='searchContainer'>
+          <label for="exampleSelect1">Find By Postcode</label>
+          <input [(ngModel)]="asyncSelected"
+                [typeahead]="getAsyncData(getContext())"
+                (typeaheadLoading)="changeTypeaheadLoading($event)"
+                (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                [typeaheadOptionsLimit]="7"
+                placeholder="Postcode"
+                class="form-control">
+          <div *ngIf="typeaheadLoading===true">
+              <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+          </div>
+          <div *ngIf="typeaheadNoResults===true" class="" style="">
+              <i class="glyphicon glyphicon-remove"></i> No Results Found
+          </div>
+        </div>
+
+        <button class='btn btn-default rightFindButton' type="button">Submit</button>
+      </div>
+
+      
     </div>
 
-    <div class= "col-md-8 main">
+    <div class= "col-md-10 main">
+
+      <!--The Content Toggle Goes Here-->
 
     </div>
   </section>
