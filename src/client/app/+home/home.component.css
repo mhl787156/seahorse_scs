@@ -30,12 +30,3 @@ ul {
   border: solid black 1px;
 }
 
-.rightFindButton {
-  float: right;
-}
-
-.tableContainer {
-  border: solid black 1px;
-  height: 200px;
-  overflow-y: scroll;
-}

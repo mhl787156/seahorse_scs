@@ -1,0 +1,107 @@
+<section class="container-fluid">
+  <section class="row">
+    <div class= "col-md-4 sidebar">
+        <form (submit)="findOrderByRetail()">
+        <fieldset class="form-group">
+          <label for="exampleSelect1">Find Retail Order</label>
+          <button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
+          <select class="form-control" id="exampleSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </fieldset>
+      </form>
+
+      <!--<form (submit)="findOrderByWholesale()">
+        <fieldset class="form-group">-->
+      <label for="exampleSelect1">Find Wholesale Order</label>
+          <!--<button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
+          <select class="form-control" id="exampleSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>-->
+      <input [(ngModel)]="asyncSelected"
+            [typeahead]="getAsyncData(getContext())"
+            (typeaheadLoading)="changeTypeaheadLoading($event)"
+            (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+            (typeaheadOnSelect)="typeaheadOnSelect($event)"
+            [typeaheadOptionsLimit]="7"
+            placeholder="Locations loaded with timeout"
+            class="form-control">
+      <div *ngIf="typeaheadLoading===true">
+          <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+      </div>
+      <div *ngIf="typeaheadNoResults===true" class="" style="">
+          <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
+        <!--</fieldset>
+      </form>-->
+
+      <form (submit)="findOrderByPO()">
+        <fieldset class="form-group">
+          <label for="exampleSelect1">Find PO Number</label>
+          <button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
+          <select class="form-control" id="exampleSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </fieldset>
+      </form>
+
+      <!--New Component for the Recent Orders Display-->
+      <label for="recentOrdersTable">Recent Orders</label>
+      <div class="tableContainer">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+              <td>john@example.com</td>
+            </tr>
+            <tr>
+              <td>Mary</td>
+              <td>Moe</td>
+              <td>mary@example.com</td>
+            </tr>
+            <tr>
+              <td>July</td>
+              <td>Dooley</td>
+              <td>july@example.com</td>
+            </tr>
+            <tr>
+              <td>July</td>
+              <td>Dooley</td>
+              <td>july@example.com</td>
+            </tr>
+            <tr>
+              <td>July</td>
+              <td>Dooley</td>
+              <td>july@example.com</td>
+            </tr>
+            <tr>
+              <td>July</td>
+              <td>Dooley</td>
+              <td>july@example.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class= "col-md-8 main">
+
+      <!--The Content Toggle Goes Here-->
+
+    </div>
+  </section>
+</section>
