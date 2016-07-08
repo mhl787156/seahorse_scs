@@ -4,19 +4,12 @@
 
     <h1>CUSTOMERS</h1>
 
-    <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-default btn-lg">Recent</button>
-      <button type="button" class="btn btn-default btn-lg">Search</button>
-      <button type="button" class="btn btn-default btn-lg">All</button>
-    </div>
-
-    <button type="button" style="float:right" class="btn btn-default">New</button>
-
-    <table>
-      <ul>
-        <li *ngFor="let name of nameListService.get() | async">{{name}}</li>
-      </ul>
-    </table>
+      <button type="button" 
+              class="btn btn-primary btn-lg btn-block"
+              [routerLink]="['/customers']">
+              Search Customers
+      </button>
+   
 
   </section>
 </section>
@@ -26,87 +19,12 @@
   <section class="innerBox">
 
     <h1>ORDERS</h1>
-
-    <form (submit)="findOrderByRetail()">
-      <fieldset class="form-group">
-        <label for="exampleSelect1">Find Retail Order</label>
-        <button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
-        <select class="form-control" id="exampleSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </fieldset>
-    </form>
-
-    <form (submit)="findOrderByWholesale()">
-      <fieldset class="form-group">
-        <label for="exampleSelect1">Find Wholesale Order</label>
-        <button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
-        <select class="form-control" id="exampleSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </fieldset>
-    </form>
-
-    <form (submit)="findOrderByPO()">
-      <fieldset class="form-group">
-        <label for="exampleSelect1">Find PO Number</label>
-        <button class="btn btn-default btn-lg rightFindButton" type="submit">Find</button>
-        <select class="form-control" id="exampleSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </fieldset>
-    </form>
-
-    <!--New Component for the Recent Orders Display-->
-    <label for="recentOrdersTable">Recent Orders</label>
-    <div class="tableContainer">
-      <table class="table table-hover">
-        <tbody>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr>
-          <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
-          <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <button type="button" 
+              class="btn btn-primary btn-lg btn-block"
+              [routerLink]="['/orders']">
+              Search Orders
+      </button>
+   
 
   </section>
 </section>

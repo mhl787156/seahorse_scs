@@ -3,16 +3,16 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
 import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/components/typeahead';
 
 /**
- * This class represents the lazy loaded OrdersComponent.
+ * This class represents the lazy loaded AdminComponent.
  */
 @Component({
   moduleId: module.id,
-  selector: 'sd-orders',
-  templateUrl: 'orders.component.html',
-  styleUrls: ['orders.component.css'],
+  selector: 'sd-admin',
+  templateUrl: 'admin.component.html',
+  styleUrls: ['admin.component.css'],
   directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES]
 })
-export class OrdersComponent {
+export class AdminComponent {
   public selected:string = '';
 
   public asyncSelected:string = '';

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { NameListService } from '../shared/index';
 
@@ -11,7 +12,7 @@ import { NameListService } from '../shared/index';
   selector: 'sd-home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
-  directives: [REACTIVE_FORM_DIRECTIVES]
+  directives: [REACTIVE_FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class HomeComponent {
 
