@@ -8,10 +8,8 @@
   <a [routerLink]="['/orders']" 
      (click)="changeTab(2)"
      [ngClass]="{active: isCurrentTab(2)}">ORDERS</a>
-
-  <a style="float:right;" 
+  <a style="float:right" 
      [routerLink]="['/admin']"
      (click)="changeTab(3)"
-     [ngClass]="{active: isCurrentTab(3)}"
-     >ADMIN</a>
+     [ngClass]="{active: isCurrentTab(3)}">ADMIN</a>
 </nav>

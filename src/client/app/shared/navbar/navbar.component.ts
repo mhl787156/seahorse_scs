@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NgClass} from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 /**
@@ -17,7 +17,6 @@ export class NavbarComponent {
 
   public changeTab(n: number) {
     this.currentTab = n;
-    console.log(this.currentTab);
   }
 
   public isCurrentTab(n: number): boolean {

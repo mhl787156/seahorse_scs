@@ -8,8 +8,8 @@ import { AdminRoutes } from './+admin/index';
 const routes: RouterConfig = [
   ...HomeRoutes,
   ...CustomersRoutes,
+  ...AdminRoutes,
   ...OrdersRoutes,
-  ...AdminRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [
