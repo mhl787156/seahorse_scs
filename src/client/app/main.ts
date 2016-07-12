@@ -3,6 +3,9 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { enableProdMode } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 
+import { HTTP_PROVIDERS } from '@angular/http';
+import { AuthGuardService } from './shared/index';
+import { AuthService } from './login/index';
 import { APP_ROUTER_PROVIDERS } from './app.routes';
 import { AppComponent } from './app.component';
 
@@ -15,9 +18,12 @@ if ('<%= ENV %>' === 'prod') { enableProdMode(); }
 bootstrap(AppComponent, [
   disableDeprecatedForms(),
   provideForms(),
+  HTTP_PROVIDERS,
+  AuthGuardService,
+  AuthService,
   APP_ROUTER_PROVIDERS,
   {
-    provide: APP_BASE_HREF,
+    provide: APP_BASE_HREF ,
     useValue: '<%= APP_BASE %>'
   }
 ]);

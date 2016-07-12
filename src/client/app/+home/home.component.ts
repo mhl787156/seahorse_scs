@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
-import { NameListService } from '../shared/index';
+import { AuthGuardService } from '../shared/index';
 
 /**
  * This class represents the lazy loaded HomeComponent.
@@ -12,28 +12,9 @@ import { NameListService } from '../shared/index';
   selector: 'sd-home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
+  providers: [AuthGuardService],
   directives: [REACTIVE_FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class HomeComponent {
-
   newName: string;
-
-  /**
-   * Creates an instance of the HomeComponent with the injected
-   * NameListService.
-   *
-   * @param {NameListService} nameListService - The injected NameListService.
-   */
-  constructor(public nameListService: NameListService) {}
-
-  /**
-   * Calls the add method of the NameListService with the current newName value of the form.
-   * @return {boolean} false to prevent default form submit behavior to refresh the page.
-   */
-  addName(): boolean {
-    this.nameListService.add(this.newName);
-    this.newName = '';
-    return false;
-  }
-
 }

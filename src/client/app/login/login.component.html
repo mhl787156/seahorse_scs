@@ -1,0 +1,22 @@
+<section class="container">
+
+  <h2 class="form-signin-heading">Please sign in</h2>
+  
+  <label for="inputUserName" class="sr-only">UserName</label>
+  <input type="text" id="inputUserName" 
+          class="form-control" placeholder="UserName" [(ngModel)]="username">
+  
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" 
+          class="form-control" placeholder="Password" [(ngModel)]="password">
+  
+  <div class="checkbox">
+    <label>
+       Remember me
+    </label>
+    <input type="checkbox" value="remember-me" [(ngModel)]="remember">
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signInButtonPressed()">Sign in</button>
+
+</section> <!-- /container -->
