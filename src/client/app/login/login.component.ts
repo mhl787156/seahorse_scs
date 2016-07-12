@@ -36,7 +36,11 @@ export class LoginComponent {
       remember: this.remember,
     }).subscribe(res => {
       console.log(res);
-      this.router.navigateByUrl('/home');
+      if(<boolean> res) {
+        this.router.navigateByUrl('/home');
+      } else {
+        alert('Username and/or Password not recognised');
+      }
     });
   }
 
