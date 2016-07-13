@@ -9,4 +9,9 @@ export const HomeRoutes: RouterConfig = [
     component: HomeComponent,
     canActivate: [AuthGuardService]
   },
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuardService]
+  }
 ];

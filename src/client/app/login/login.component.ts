@@ -37,7 +37,7 @@ export class LoginComponent {
     }).subscribe(res => {
       console.log(res);
       if(<boolean> res) {
-        this.router.navigateByUrl('/home').catch(()=>{return;});
+        this.router.navigateByUrl('/home').catch( () => { return; } );
       } else {
         alert('Username and/or Password not recognised');
       }
