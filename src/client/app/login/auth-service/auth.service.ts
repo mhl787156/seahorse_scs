@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response} from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
@@ -28,7 +29,7 @@ export class AuthService {
    * @param {Http} http - The injected Http.
    * @constructor
    */
-  constructor(private http: Http) {}
+  constructor(private authhttp: AuthHttp, private http: Http) {}
 
   /**
    * Returns an Observable for the HTTP GET request for the JSON resource. If there was a previous successful request
@@ -50,11 +51,14 @@ export class AuthService {
     return this.request;
   }
 
-  login(logininfo: {}): Observable<boolean> {
-    //   this.http.post('', logininfo).map((response: Response) => response.json());
-    this.loggedIn = true;
-    console.log(logininfo);
-    return Observable.from([this.loggedIn]);
+  login(logininfo: {}) {
+    return this.http.post('http://localhost:100/api/login', JSON.stringify(logininfo))
+                  .map(res => res.json());
+  }
+
+  setPassword(logininfo: {}){
+    return this.http.post('http://localhost:100/api/setpassword', JSON.stringify(logininfo))
+                  .map(res => res.json());
   }
 
   isLoggedIn(): boolean {

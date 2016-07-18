@@ -20,6 +20,12 @@
   height: 34px;
 }
 
+.first-time {
+  position: absolute;
+  bottom: 0;
+  width: 100%
+}
+
 
 /*
  * Sidebar

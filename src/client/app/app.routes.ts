@@ -1,6 +1,6 @@
 import { provideRouter, RouterConfig } from '@angular/router';
 
-import {AuthGuardService} from './shared/index';
+import { AuthGuardService } from './shared/index';
 
 import { CustomersRoutes } from './+customers/index';
 import { HomeRoutes } from './+home/index';

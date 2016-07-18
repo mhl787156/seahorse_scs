@@ -1,6 +1,7 @@
 <section class="container">
 
-  <h2 class="form-signin-heading">Please sign in</h2>
+  <h2 class="form-signin-heading" *ngIf="!firstTime">Please sign in</h2>
+  <h2 class="form-signin-heading" *ngIf="firstTime">First Time Sign In - Please Create a Password</h2>
   
   <label for="inputUserName" class="sr-only">UserName</label>
   <input type="text" id="inputUserName" 
@@ -9,14 +10,14 @@
   <label for="inputPassword" class="sr-only">Password</label>
   <input type="password" id="inputPassword" 
           class="form-control" placeholder="Password" [(ngModel)]="password">
-  
-  <div class="checkbox">
-    <label>
-       Remember me
-    </label>
-    <input type="checkbox" value="remember-me" [(ngModel)]="remember">
-  </div>
 
-  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="signInButtonPressed()">Sign in</button>
+  <input type="password" id="inputPassword" *ngIf="firstTime" 
+          class="form-control" placeholder="Confirm Password" [(ngModel)]="confirmpassword">
+  
+  <button class="btn btn-lg btn-primary btn-block" type="submit" *ngIf="!firstTime" (click)="signInButtonPressed()">Sign in</button>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" *ngIf="firstTime" (click)="firstTimeSignInButtonPressed()">Register Password</button>
 
 </section> <!-- /container -->
+<section>
+  <button class="btn btn-lg btn-primary btn-block first-time" type="submit" (click)="toggleFirstTime()">First Time Sign In</button>
+</section>

@@ -20,7 +20,9 @@ export class LoginComponent {
 
   username: string = '';
   password: string = '';
-  remember: boolean = false;
+  confirmpassword: string = '';
+
+  firstTime: boolean = false;
 
   /**
    * Creates a new AuthService with the injected service.
@@ -33,15 +35,31 @@ export class LoginComponent {
     this.service.login({
       username: this.username,
       password: this.password,
-      remember: this.remember,
-    }).subscribe(res => {
-      console.log(res);
-      if(<boolean> res) {
-        this.router.navigateByUrl('/home').catch( () => { return; } );
-      } else {
-        alert('Username and/or Password not recognised');
-      }
-    });
+    }).subscribe(
+      data => {
+        console.log(data.token);
+        localStorage.setItem('id_token', data.token);
+      },
+      err => console.log(err),
+      () => console.log('Request Complete')
+    );
+  }
+
+  firstTimeSignInButtonPressed() {
+    this.service.setPassword({
+       username: this.username,
+       password: this.password,
+    }).subscribe(
+      data => {
+        console.log(data.token);
+      },
+      err => console.log(err),
+      () => console.log('Request Complete')
+    );
+  }
+
+  toggleFirstTime() {
+    this.firstTime = !this.firstTime;
   }
 
 }
