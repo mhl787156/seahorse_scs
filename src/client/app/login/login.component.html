@@ -1,23 +1,79 @@
 <section class="container">
 
-  <h2 class="form-signin-heading" *ngIf="!firstTime">Please sign in</h2>
-  <h2 class="form-signin-heading" *ngIf="firstTime">First Time Sign In - Please Create a Password</h2>
   
-  <label for="inputUserName" class="sr-only">UserName</label>
-  <input type="text" id="inputUserName" 
-          class="form-control" placeholder="UserName" [(ngModel)]="username">
   
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" id="inputPassword" 
-          class="form-control" placeholder="Password" [(ngModel)]="password">
 
-  <input type="password" id="inputPassword" *ngIf="firstTime" 
-          class="form-control" placeholder="Confirm Password" [(ngModel)]="confirmpassword">
-  
-  <button class="btn btn-lg btn-primary btn-block" type="submit" *ngIf="!firstTime" (click)="signInButtonPressed()">Sign in</button>
-  <button class="btn btn-lg btn-primary btn-block" type="submit" *ngIf="firstTime" (click)="firstTimeSignInButtonPressed()">Register Password</button>
+  <!--Sign In Form-->
+  <form *ngIf="!firstTime && active" (submit)="signIn()" #loginForm="ngForm">
+    <h2 class="form-signin-heading">Please sign in</h2>  
+    <div class="form-group">
+          <label for="inputUserName" class="sr-only">UserName</label>
+          <input type="text" required 
+                class="form-control" placeholder="UserName"
+                [(ngModel)]="username" name="inputUserName" #name="ngModel">
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+            Name is required
+          </div>
+    </div>
+
+    <div class="form-group">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" required 
+                class="form-control" placeholder="Password"
+                [(ngModel)]="password" name="inputPassword" #pwd="ngModel">
+          <div [hidden]="pwd.valid || pwd.pristine" class="alert alert-danger">
+            Password is required
+          </div>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Sign in</button>
+    <div [hidden]="!submitted || (detailsRecognised && submitted)" class="alert alert-danger">
+      {{errormsg}}
+    </div>
+  </form>
+
+  <!--First Time Sign In, Create Password-->
+  <form *ngIf="firstTime && active" (submit)="firstTimeSignIn()" #loginForm2="ngForm">
+    <h2 class="form-signin-heading">First Time Sign In - Please Create a Password</h2>
+    <div class="form-group">
+          <label for="inputUserName" class="sr-only">UserName</label>
+          <input type="text" required 
+                class="form-control" placeholder="UserName"
+                [(ngModel)]="username" name="inputUserName" #name="ngModel">
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+            Name is required
+          </div>
+    </div>
+
+    <div class="form-group">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" required 
+                class="form-control" placeholder="Password"
+                [(ngModel)]="password" name="inputPassword" #pwd="ngModel">
+          <div [hidden]="pwd.valid || pwd.pristine" class="alert alert-danger">
+            Password is required
+          </div>
+    </div>
+    <div class="form-group">
+          <label for="inputConfirmPassword" class="sr-only">Password</label>
+          <input type="password" required 
+          class="form-control" placeholder="Confirm Password"
+          [(ngModel)]="confirmpassword" name="inputConfirmPassword" #cpwd="ngModel">
+          <div [hidden]="cpwd.valid || cpwd.pristine" class="alert alert-danger">
+            Password is required
+          </div>
+          <div [hidden]="password === confirmpassword" class="alert alert-danger">
+            Passwords do not match
+          </div>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Password</button>
+    <div [hidden]="!submitted || (detailsRecognised && submitted)" class="alert alert-danger">
+    {{errormsg}}
+    </div>
+  </form>
 
 </section> <!-- /container -->
 <section>
-  <button class="btn btn-lg btn-primary btn-block first-time" type="submit" (click)="toggleFirstTime()">First Time Sign In</button>
+  <button class="btn btn-lg btn-primary btn-block first-time" type="button" (click)="toggleFirstTime()">First Time Sign In</button>
 </section>

@@ -6,15 +6,16 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
-
-import { AuthService } from '../../login/index';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.authService.isLoggedIn()) {
+    console.log(localStorage.getItem('id_token'));
+
+    if (tokenNotExpired()) {
       return true;
     }
 

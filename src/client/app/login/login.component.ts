@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
-import {Router, ROUTER_DIRECTIVES} from '@angular/router';
-import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/components/typeahead';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
+import { TYPEAHEAD_DIRECTIVES } from 'ng2-bootstrap/components/typeahead';
 
-import {AuthService} from './auth-service/index';
+import { AuthService } from './auth-service/index';
 
 /**
  * This class represents the lazy loaded LoginComponent.
@@ -18,11 +18,19 @@ import {AuthService} from './auth-service/index';
 })
 export class LoginComponent {
 
+  active: boolean = true;
+
   username: string = '';
   password: string = '';
   confirmpassword: string = '';
 
+  detailsRecognised : boolean = false;
+
   firstTime: boolean = false;
+
+  submitted: boolean = false;
+
+  errormsg: string = 'Details not recognised, if you have forgotten your password, please ask the admin to reset it for you';
 
   /**
    * Creates a new AuthService with the injected service.
@@ -31,35 +39,50 @@ export class LoginComponent {
    */
   constructor(private service: AuthService, private router:Router) {}
 
-  signInButtonPressed() {
+  signIn() {
     this.service.login({
       username: this.username,
       password: this.password,
     }).subscribe(
-      data => {
-        console.log(data.token);
-        localStorage.setItem('id_token', data.token);
+      token => {
+        localStorage.setItem('id_token', token);
+        this.detailsRecognised = true;
+        this.router.navigateByUrl('/home');
       },
-      err => console.log(err),
+      err => {
+        this.password = '';
+        console.log(err);
+        if(err !== '' ) {this.errormsg = err;}
+      },
       () => console.log('Request Complete')
     );
+    this.submitted = true;
   }
 
-  firstTimeSignInButtonPressed() {
+  firstTimeSignIn() {
     this.service.setPassword({
        username: this.username,
        password: this.password,
     }).subscribe(
       data => {
-        console.log(data.token);
+        this.detailsRecognised = true;
       },
-      err => console.log(err),
+      err => {console.log(err); if(err !== '' ) {this.errormsg = err;}},
       () => console.log('Request Complete')
     );
+    this.clearFields();
+    this.submitted = true;
   }
 
   toggleFirstTime() {
     this.firstTime = !this.firstTime;
+  }
+
+  clearFields() {
+    this.username = '';
+    this.password = '';
+    this.confirmpassword = '';
+    this.firstTime = false;
   }
 
 }

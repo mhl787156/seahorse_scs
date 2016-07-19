@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Http, Response} from '@angular/http';
+import { Http } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/publishReplay';
 
 /**
@@ -13,57 +16,39 @@ import 'rxjs/add/operator/publishReplay';
 export class AuthService {
 
   /**
-   * Whether the log in was successful
-   * @type {Array}
-   */
-  private loggedIn: boolean = false;
-
-  /**
-   * Contains the currently pending request.
-   * @type {Observable<string[]>}
-   */
-  private request: Observable<string[]>;
-
-  /**
    * Creates a new NameListService with the injected Http.
    * @param {Http} http - The injected Http.
    * @constructor
    */
   constructor(private authhttp: AuthHttp, private http: Http) {}
 
-  /**
-   * Returns an Observable for the HTTP GET request for the JSON resource. If there was a previous successful request
-   * (the local names array is defined and has elements), the cached version is returned
-   * @return {string[]} The Observable for the HTTP request.
-   */
-  get(): Observable<string[]> {
-    // if (this.names && this.names.length) {
-    //   return Observable.from([this.names]);
-    // }
-    // if (!this.request) {
-    //   this.request = this.http.get('/assets/data.json')
-    //     .map((response: Response) => response.json())
-    //     .map((data: string[]) => {
-    //       this.request = null;
-    //       return this.names = data;
-    //     }).publishReplay(1).refCount();
-    // }
-    return this.request;
-  }
-
   login(logininfo: {}) {
     return this.http.post('http://localhost:100/api/login', JSON.stringify(logininfo))
-                  .map(res => res.json());
+                  .map(res => res.json().token || {})
+                  .catch(this.errorHandler);
   }
 
-  setPassword(logininfo: {}){
+  setPassword(logininfo: {}) {
     return this.http.post('http://localhost:100/api/setpassword', JSON.stringify(logininfo))
-                  .map(res => res.json());
+                  .map(res => res.json())
+                  .catch(this.errorHandler);
   }
 
-  isLoggedIn(): boolean {
-      return this.loggedIn;
+  errorHandler(error: any): Observable<string> {
+    let errMsg = (error.message) ? error.message : '';
+    switch(error.status) {
+      case -1:
+        errMsg = `${error.status} - ${error.statusText} Server Error`; break;
+      case 400:
+        errMsg = `Your Username has not been recognised`; break;
+      case 401:
+        errMsg = `You need to set your password, click the first time setup button at the bottom of the screen`; break;
+      case 422:
+        errMsg = `Your password does not match, please try again`; break;
+      case 403:
+        errMsg = `User password already set, please ask admin to reset`; break;
+    }
+    return Observable.throw(errMsg);
   }
 
 }
-
