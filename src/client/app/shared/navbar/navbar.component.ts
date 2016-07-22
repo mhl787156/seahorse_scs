@@ -22,4 +22,5 @@ export class NavbarComponent {
   public isCurrentTab(n: number): boolean {
     return this.currentTab === n;
   }
+
 }

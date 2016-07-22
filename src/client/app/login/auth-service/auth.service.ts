@@ -22,18 +22,31 @@ export class AuthService {
    */
   constructor(private authhttp: AuthHttp, private http: Http) {}
 
+  /**
+   * Login sends a HTTP POST request to the REST server
+   * @param Object containing a username and password both strings
+   * @return Observable<Response> with modified error handler and token as the data  
+   */
   login(logininfo: {}) {
     return this.http.post('http://localhost:100/api/login', JSON.stringify(logininfo))
                   .map(res => res.json().token || {})
                   .catch(this.errorHandler);
   }
 
+  /**
+   * setPassword sends a HTTP POST request to REST server
+   * @param Object containing a username and password both strings
+   * @return Observable<Response> with modified error handler and token as the data
+   */
   setPassword(logininfo: {}) {
     return this.http.post('http://localhost:100/api/setpassword', JSON.stringify(logininfo))
                   .map(res => res.json())
                   .catch(this.errorHandler);
   }
 
+  /**
+   * errorHandler takes an error and translates the error code into human messages
+   */
   errorHandler(error: any): Observable<string> {
     let errMsg = (error.message) ? error.message : '';
     switch(error.status) {
