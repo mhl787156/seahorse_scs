@@ -20,6 +20,12 @@
   height: 34px;
 }
 
+.new-user-container {
+  border: solid black 1px;
+  height: 20%;
+  width: 100%;
+}
+
 
 /*
  * Sidebar
