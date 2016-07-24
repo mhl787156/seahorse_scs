@@ -1,0 +1,20 @@
+<div class="new-user-container">
+  <form class="form-inline" (submit)="submitNewUser()" #newUserForm="ngForm">
+    <h2 class="form-signin-heading">New User details</h2>
+      
+    <div class="form-group">
+      <label for="inputUserName" class="sr-only">UserName</label>
+      <input type="text" required 
+            class="form-control" placeholder="userName"
+            [(ngModel)]="username" name="inputUserName" #name="ngModel">
+      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+        Name is required
+      </div>
+    </div>
+
+    <button class="btn btn-lg btn-primary" type="submit" [disabled]="!newUserForm.form.valid">Sign in</button>
+    <div [hidden]="!submitted || (detailsRecognised && submitted)" class="alert alert-danger">
+      {{errormsg}}
+    </div>
+  </form>
+ </div>

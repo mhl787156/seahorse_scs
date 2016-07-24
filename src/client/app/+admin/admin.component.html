@@ -1,24 +1,28 @@
 <section class="container-fluid">
   <section class="row">
-    <div class= "col-md-2 sidebar">
+   
+
+    <!--The Content Toggle Goes Here-->
+    <div class= "col-md-10 main">
+
+      <!--Employee Management Tab-->
+      <div *ngIf="isSideTab(2)">
+        <admin-em></admin-em>       
+      </div>
+    </div>
+     <div class= "col-md-2 sidebar">
       <div class='nav' style="padding-bottom: 20px;">
         
         <ul class="nav nav-sidebar">
-          <li class="active"><a href="#">General Reports <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Dated Reports</a></li>
+          <li [ngClass]="{active: isSideTab(0)}" (click)="changeSideTab(0)"><a>General Reports</a></li>
+          <li [ngClass]="{active: isSideTab(1)}" (click)="changeSideTab(1)"><a>Dated Reports</a></li>
         </ul>
 
         <ul class="nav nav-sidebar">
-          <li><a href="">Employee Management</a></li>
+          <li [ngClass]="{active: isSideTab(2)}"  (click)="changeSideTab(2)"><a>Employee Management</a></li>
         </ul>
 
       </div>
-    </div>
-
-    <div class= "col-md-offset-2 col-md-10 main">
-      <h1>ADMIN</h1>
-      <!--The Content Toggle Goes Here-->
-
     </div>
   </section>
 </section>
