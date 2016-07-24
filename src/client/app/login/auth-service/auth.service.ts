@@ -15,6 +15,8 @@ import 'rxjs/add/operator/publishReplay';
 @Injectable()
 export class AuthService {
 
+  Uri: string = 'http://localhost:80/';
+
   /**
    * Creates a new NameListService with the injected Http.
    * @param {Http} http - The injected Http.
@@ -28,7 +30,7 @@ export class AuthService {
    * @return Observable<Response> with modified error handler and token as the data  
    */
   login(logininfo: {}) {
-    return this.http.post('http://localhost:100/api/login', JSON.stringify(logininfo))
+    return this.http.post(this.Uri+'api/login', JSON.stringify(logininfo))
                   .map(res => res.json().token || {})
                   .catch(this.errorHandler);
   }
@@ -39,7 +41,7 @@ export class AuthService {
    * @return Observable<Response> with modified error handler and token as the data
    */
   setPassword(logininfo: {}) {
-    return this.http.post('http://localhost:100/api/setpassword', JSON.stringify(logininfo))
+    return this.http.post(this.Uri+'api/setpassword', JSON.stringify(logininfo))
                   .map(res => res.json())
                   .catch(this.errorHandler);
   }
