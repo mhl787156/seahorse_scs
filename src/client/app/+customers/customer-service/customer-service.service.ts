@@ -3,11 +3,14 @@ import { Http } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/publishReplay';
+
+import { Customer } from '../../models/index';
 
 /**
  * This class provides the Login service with methods to read names and add names.
@@ -58,6 +61,23 @@ export class CustomerServiceService {
     'Virginia', 'Washington',
     'West Virginia', 'Wisconsin', 'Wyoming'];
 
+    public customerExample: Customer = {
+      id : 67897689,
+      date_added : '13/06/09',
+      firstname : 'asdasd',
+      surname : 'asdassd',
+      company_name : '',
+      address : '',
+      postcode : '',
+      home_phone : '',
+      mobile_phone : '',
+      fax_number : '',
+      email : 'bobobob@something.com',
+      mailing : false,
+      notes : 'Some Notes',
+      orderids: ['45789864678', '8654579', '986569', '986546890']
+    };
+
   /**
    * Creates a new NameListService with the injected Http.
    * @param {Http} http - The injected Http.
@@ -66,15 +86,43 @@ export class CustomerServiceService {
   constructor(private authhttp: AuthHttp, private http: Http) {}
 
   /**
-   * Login sends a HTTP POST request to the REST server
-   * @param Object containing a username and password both strings
+   * getCustomerList sends a HTTP GET request to the REST server
    * @return Observable<Response> with modified error handler and token as the data  
    */
-  public getCustomerList() : Observable<string> {
-    // return this.http.post(this.Uri+'api/login', JSON.stringify(logininfo))
-    //               .map(res => res.json().token || {})
+  public getCustomerList() : Observable<any> {
+    // return this.authhttp.get(this.Uri+'customer/list/name')
+    //               .map(res => res.json() || {})
     //               .catch(this.errorHandler);
-    return Observable.from(this.states);
+    let j = Observable.of({
+      data: this.states
+    });
+    return j;
+  }
+
+
+  /**
+   * getCustomer sends a HTTP GET request to the REST server
+   * @param id of the customer
+   * @return Observable<Response> with modified error handler and token as the data  
+   */
+  public getCustomer(id : number) {
+    // return this.authhttp.get(this.Uri+'customer/'+id)
+    //                .map(res => res.json() || {})
+    //                .catch(this.errorHandler);
+    return Observable.of({customer : this.customerExample});
+  }
+
+  /**
+   * newCustomer sends a HTTP GET request to the REST server to create a new user
+   * @param -----
+   * @return Observable<Response> with modified error handler and the customer ID
+   */
+  public newCustomer() {
+    return this.authhttp.get(this.Uri+'api/customer/new')
+                    .map(res => res.json() || {})
+                    .map(res => console.log(res))
+                    .catch(this.errorHandler)
+    // return Observable.of({customer : this.customerExample});
   }
 
   /**

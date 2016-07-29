@@ -111,6 +111,10 @@
     <div class= "col-md-offset-4 col-md-8 main">
 
       <!--The Content Toggle Goes Here-->
+      <div class="mainSubContainer">
+          <h4 *ngIf="!orderSelected">Select an order on the left</h4>
+          <order-single *ngIf="orderSelected" [orderId]="orderId"></order-single>
+      </div>
 
     </div>
   </section>

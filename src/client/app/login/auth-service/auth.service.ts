@@ -9,13 +9,21 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/publishReplay';
 
+import { User } from '../../models/index';
+
 /**
  * This class provides the Login service with methods to read names and add names.
  */
 @Injectable()
 export class AuthService {
 
-  Uri: string = 'http://localhost:80/';
+  /**
+   * user is the current logged in user,
+   * it is set when a user is logged in
+   */
+  private user: User;
+
+  private Uri: string = 'http://localhost:80/';
 
   /**
    * Creates a new NameListService with the injected Http.
@@ -26,12 +34,16 @@ export class AuthService {
 
   /**
    * Login sends a HTTP POST request to the REST server
+   * Sets the value of the current user to access from other locations
    * @param Object containing a username and password both strings
    * @return Observable<Response> with modified error handler and token as the data  
    */
   login(logininfo: {}) {
     return this.http.post(this.Uri+'api/login', JSON.stringify(logininfo))
-                  .map(res => res.json().token || {})
+                  .map(res => {
+                    this.user = res.json().user;
+                    return res.json().token || {};
+                  })
                   .catch(this.errorHandler);
   }
 
@@ -44,6 +56,14 @@ export class AuthService {
     return this.http.post(this.Uri+'api/setpassword', JSON.stringify(logininfo))
                   .map(res => res.json())
                   .catch(this.errorHandler);
+  }
+
+  /**
+   * getCurrentUser returns the current logged in user; 
+   * @return User which represents currently logged in user
+   */
+  getCurrentUser() : User{
+      return this.user;
   }
 
   /**

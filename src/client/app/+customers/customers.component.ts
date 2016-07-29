@@ -4,6 +4,7 @@ import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/components/typeahead';
 import { Observable } from 'rxjs/Observable';
 
 import { CustomerServiceService } from './customer-service/index';
+import { CustomerProfileComponent } from './customer-profile/index';
 
 /**
  * This class represents the lazy loaded AboutComponent.
@@ -13,43 +14,44 @@ import { CustomerServiceService } from './customer-service/index';
   selector: 'sd-customers',
   templateUrl: 'customers.component.html',
   styleUrls: ['customers.component.css'],
-  directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES],
+  directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, CustomerProfileComponent],
   providers: [CustomerServiceService]
 })
 export class CustomersComponent {
-  public selected:string = '';
-  public asyncSelected:string = '';
+  public asyncSelectedName: string = '';
+  public asyncSelectedPostcode:string = '';
+
+  public dataSourceName: string[];
+  public dataSourcePostcode: string[];
+
   public typeaheadLoading:boolean = false;
   public typeaheadNoResults:boolean = false;
 
-  private _cache:any;
-  private _prevContext:any;
+  public customerSelected: boolean = false;
+  public customerId: number;
 
-  public constructor(private _customerService: CustomerServiceService) {}
 
-  public getContext():any {
-    return this;
+  public constructor(private _customerService: CustomerServiceService) {
+    this.getAsyncData();
   }
 
-  public getAsyncData(context:any) : Function {
-    if (this._prevContext === context) {
-      return this._cache;
-    }
+  public newCustomer(){
+    this._customerService.newCustomer().subscribe(res => {
+      console.log(res);
+      //getCustomer(res)
+    });
+  }
 
-    this._prevContext = context;
+  public getAsyncData() :void {
+    this._customerService.getCustomerList().subscribe(res => {
+      let dataSource = res.data;
 
-    let f:Function = () : Observable<string> =>  {
-      let k = this._customerService.getCustomerList();
-      console.log(k);
-      return k;
-    };
+      // Must filter by Name Order TODO
+      this.dataSourceName = dataSource;
 
-    console.log(f);
-    console.log(typeof f);
-
-    this._cache = f;
-
-    return this._cache;
+      // Must filter by PostCode TODO
+      this.dataSourceName = dataSource;
+    });
   }
 
   public changeTypeaheadLoading(e:boolean):void {
@@ -60,7 +62,19 @@ export class CustomersComponent {
     this.typeaheadNoResults = e;
   }
 
-  public typeaheadOnSelect(e:any):void {
-    console.log(`Selected value: ${e.item}`);
+  public typeaheadOnSelectName(e:any):void {
+    console.log(`Selected Na me value: ${e.item}`);
+
+    //Search through Orders by name, and request customer details by ID TODO
+    this.customerId = 67897689;
+    this.customerSelected = true;
+  }
+
+   public typeaheadOnSelectPostcode(e:any):void {
+    console.log(`Selected Postcode value: ${e.item}`);
+
+    //Search through Orders by Postcode, and request customer details by ID TODO
+    this.customerId = 67897689;
+    this.customerSelected = true;
   }
 }
