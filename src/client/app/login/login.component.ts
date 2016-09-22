@@ -44,8 +44,12 @@ export class LoginComponent {
       username: this.username,
       password: this.password,
     }).subscribe(
-      token => {
-        localStorage.setItem('id_token', token);
+      data => {
+        if (data === null) {
+          return;
+        }
+        localStorage.setItem('id_token', data.token);
+        localStorage.setItem('uid', data.user);
         this.detailsRecognised = true;
         this.router.navigateByUrl('/home');
       },

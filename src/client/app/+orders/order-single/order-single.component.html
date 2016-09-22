@@ -1,0 +1,154 @@
+<div>
+    <form class="form-horizontal">
+        <fieldset #customer_form id="customer_form">
+            
+            <!--Customer Details-->
+            <div class="container-fluid">
+                <div class="row">
+                    <!--First Column-->
+                    <div class="col-sm-6">
+
+                        <!--ID Static Show-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="firstNameInput">Customer ID</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{customer.id}}</p>
+                            </div>
+                        </div>
+
+
+                        <!--First Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="firstNameInput">First Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="firstNameInput" class="form-control" 
+                                    [(ngModel)]="customer.firstname" name="firstNameInput" #fname="ngModel">
+                            </div>
+                        </div>
+
+                        <!--Second Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="surnameNameInput">Surname</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="surnameNameInput" class="form-control" 
+                                    [(ngModel)]="customer.surname" name="surnameNameInput" #sname="ngModel">
+                            </div>
+                        </div>
+
+                        <!--Company Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="companyNameInput">Company</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="companyNameInput" class="form-control" 
+                                    [(ngModel)]="customer.company_name" name="companyNameInput" #cname="ngModel">
+                            </div>
+                        </div>
+
+                        <!--Address Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="addressInput">Address</label>
+                            <div class="col-sm-10">
+                                <textarea type="text" id="addressInput" class="form-control" 
+                                    [(ngModel)]="customer.address" name="addressInput" #address="ngModel">
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <!--Postcode Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="postcodeInput">Postcode</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="postcodeInput" class="form-control" 
+                                    [(ngModel)]="customer.postcode" name="postcodeInput" #postcode="ngModel">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+
+                        <!--HomePhone Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="homephoneInput">Home Phone</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="homephoneInput" class="form-control" 
+                                    [(ngModel)]="customer.home_phone" name="homephoneInput" #homephone="ngModel">
+                            </div>
+                        </div>
+                        
+                        <!--MobilePhone Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="mobilephoneInput">Mobile Phone</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="mobilephoneInput" class="form-control" 
+                                    [(ngModel)]="customer.mobile_phone" name="mobilephoneInput" #mobilephone="ngModel">
+                            </div>
+                        </div>
+
+                        <!--FaxNumber Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="faxInput">Fax Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="faxInput" class="form-control" 
+                                    [(ngModel)]="customer.fax_number" name="faxInput" #fax="ngModel">
+                            </div>
+                        </div>
+
+                        <!--Email Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="emailInput">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="emailInput" class="form-control" 
+                                    [(ngModel)]="customer.email" name="emailInput" #email="ngModel">
+                            </div>
+                        </div>
+
+                        <!--Mailing List Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="mailingInput">Mailing List</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" id="mailingInput" class="form-control" 
+                                    [(ngModel)]="customer.mailing" name="mailingInput" #mailing="ngModel">
+                            </div>
+                        </div>
+
+                        <!--Notes Name Input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="notesInput">Notes</label>
+                            <div class="col-sm-10">
+                                <textarea type="text" id="notesInput" class="form-control" 
+                                    [(ngModel)]="customer.notes" name="notesInput" #notes="ngModel">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <button class="btn btn-default" type="button" (click)="toggleEditSave()"> {{buttonLabel}} </button>
+    <button class="btn btn-default" type="button" (click)="toggleOrders()"> Show Customer Orders </button>
+
+    <!--Show Customer Orders-->
+    <div *ngIf="showOrders">
+        <table class="table table-striped">
+            <thead class="thead-default">
+                <tr>
+                    <th>#</th>
+                    <th>OrderId</th>
+                    <th>Field1</th>
+                    <th>Field2</th>
+                    <th>Field3</th>
+                    <th>Field4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let id of customer.orderids; let i = index">
+                    <th>{{i}}</th>
+                    <th>{{id}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

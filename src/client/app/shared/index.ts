@@ -6,3 +6,4 @@ export * from './navbar/index';
 export * from './toolbar/index';
 export * from './config/env.config';
 export * from './auth-guard/index';
+export * from './can-deactivate/index';

@@ -21,6 +21,8 @@ export class CustomersComponent {
   public asyncSelectedName: string = '';
   public asyncSelectedPostcode:string = '';
 
+  public dataSourceList: CustomerListReturnType[];
+
   public dataSourceName: string[];
   public dataSourcePostcode: string[];
 
@@ -28,30 +30,44 @@ export class CustomersComponent {
   public typeaheadNoResults:boolean = false;
 
   public customerSelected: boolean = false;
-  public customerId: number;
+  public customerId: string;
 
 
   public constructor(private _customerService: CustomerServiceService) {
+    this.update();
+  }
+
+  public update() {
     this.getAsyncData();
   }
 
   public newCustomer(){
-    this._customerService.newCustomer().subscribe(res => {
-      console.log(res);
-      //getCustomer(res)
-    });
+    this._customerService.newCustomer()
+          .subscribe(
+            data => {
+              console.log('data', data);
+              this.customerId = data;
+              this.customerSelected = true;
+            },
+            err => console.log(err),
+            () => console.log('New Customer Request Complete')
+          );
   }
 
   public getAsyncData() :void {
-    this._customerService.getCustomerList().subscribe(res => {
-      let dataSource = res.data;
+    this._customerService.getCustomerList(this.asyncSelectedName, this.asyncSelectedPostcode)
+      .subscribe(res => {
+        let names = res.map(x => x.firstname + ' ' + x.surname);
 
-      // Must filter by Name Order TODO
-      this.dataSourceName = dataSource;
+        // Store the current list, so id can be looked up.
+        this.dataSourceList = res;
 
-      // Must filter by PostCode TODO
-      this.dataSourceName = dataSource;
-    });
+        // Must filter by Name Order TODO
+        this.dataSourceName = names;
+
+        // Must filter by PostCode TODO
+        this.dataSourcePostcode = res.map(x => x.postcode);
+      });
   }
 
   public changeTypeaheadLoading(e:boolean):void {
@@ -63,10 +79,21 @@ export class CustomersComponent {
   }
 
   public typeaheadOnSelectName(e:any):void {
-    console.log(`Selected Na me value: ${e.item}`);
+    console.log(`Selected Name value: ${e.item}`);
 
     //Search through Orders by name, and request customer details by ID TODO
-    this.customerId = 67897689;
+    let val = e.item.split(' ');
+    if(val.length === 0) {
+      return;
+    }
+
+    let person = this.dataSourceList.find((elem) => {
+      let c1 = elem.firstname === val[0];
+      let c2 = val.length === 1 ? true : elem.surname === val[1];
+      return c1 && c2;
+    });
+
+    this.customerId = person.id;
     this.customerSelected = true;
   }
 
@@ -74,7 +101,17 @@ export class CustomersComponent {
     console.log(`Selected Postcode value: ${e.item}`);
 
     //Search through Orders by Postcode, and request customer details by ID TODO
-    this.customerId = 67897689;
+    let person = this.dataSourceList.find(elem => {
+      return elem.postcode === e.item;
+    })
+    this.customerId = person.id;
     this.customerSelected = true;
   }
+}
+
+interface CustomerListReturnType {
+  id: string;
+  firstname: string;
+  surname: string;
+  postcode: string;
 }

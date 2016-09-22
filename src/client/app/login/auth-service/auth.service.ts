@@ -9,19 +9,11 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/publishReplay';
 
-import { User } from '../../models/index';
-
 /**
  * This class provides the Login service with methods to read names and add names.
  */
 @Injectable()
 export class AuthService {
-
-  /**
-   * user is the current logged in user,
-   * it is set when a user is logged in
-   */
-  private user: User;
 
   private Uri: string = 'http://localhost:80/';
 
@@ -40,11 +32,8 @@ export class AuthService {
    */
   login(logininfo: {}) {
     return this.http.post(this.Uri+'api/login', JSON.stringify(logininfo))
-                  .map(res => {
-                    this.user = res.json().user;
-                    return res.json().token || {};
-                  })
-                  .catch(this.errorHandler);
+                  .map(res => res.json())
+                  .catch(this.errorHandler)
   }
 
   /**
@@ -56,14 +45,6 @@ export class AuthService {
     return this.http.post(this.Uri+'api/setpassword', JSON.stringify(logininfo))
                   .map(res => res.json())
                   .catch(this.errorHandler);
-  }
-
-  /**
-   * getCurrentUser returns the current logged in user; 
-   * @return User which represents currently logged in user
-   */
-  getCurrentUser() : User{
-      return this.user;
   }
 
   /**
@@ -86,4 +67,14 @@ export class AuthService {
     return Observable.throw(errMsg);
   }
 
+}
+
+export interface ILogin {
+  username: string;
+  password: string;
+}
+
+export interface IToken {
+  user: string;
+  token: string;
 }

@@ -1,10 +1,11 @@
+import { provide } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { disableDeprecatedForms, provideForms } from '@angular/forms';
 import { enableProdMode } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { AUTH_PROVIDERS } from 'angular2-jwt';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
-import { HTTP_PROVIDERS } from '@angular/http';
+import { HTTP_PROVIDERS, Http } from '@angular/http';
 import { AuthGuardService } from './shared/index';
 import { AuthService } from './login/index';
 import { APP_ROUTER_PROVIDERS } from './app.routes';
@@ -27,7 +28,20 @@ bootstrap(AppComponent, [
     provide: APP_BASE_HREF ,
     useValue: '<%= APP_BASE %>'
   },
-  AUTH_PROVIDERS,
+  provide(AuthHttp, {
+    useFactory: (http:any) => {
+      return new AuthHttp(new AuthConfig({
+        headerName: 'Authorization',
+        headerPrefix: 'Bearer' + (localStorage.getItem('uid') === '' ? '' : ' '+localStorage.getItem('uid')),
+        tokenName: 'id_token',
+        tokenGetter: (() => localStorage.getItem('id_token')),
+        globalHeaders: [{'Content-Type':'application/json'}],
+        noJwtError: true,
+        noTokenScheme: true
+      }), http);
+    },
+    deps: [Http]
+  })
 ]);
 
 // In order to start the Service Worker located at "./worker.js"
