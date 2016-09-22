@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
 import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/components/typeahead';
 import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { CustomerServiceService } from './customer-service/index';
 import { CustomerProfileComponent } from './customer-profile/index';
@@ -17,7 +18,7 @@ import { CustomerProfileComponent } from './customer-profile/index';
   directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, CustomerProfileComponent],
   providers: [CustomerServiceService]
 })
-export class CustomersComponent {
+export class CustomersComponent implements OnInit{
   public asyncSelectedName: string = '';
   public asyncSelectedPostcode:string = '';
 
@@ -32,9 +33,34 @@ export class CustomersComponent {
   public customerSelected: boolean = false;
   public customerId: string;
 
-
-  public constructor(private _customerService: CustomerServiceService) {
+  /**
+   * Constructor. Sets up the routers for use, and populates the dynamic lookup
+   * @param _customerService: provides the customer service service for use
+   * @param aroute: provides access to the URL parameter
+   * @param router: provides access to the Router to route on customer ID
+   */
+  public constructor(private _customerService: CustomerServiceService,
+                     private aroute: ActivatedRoute,
+                     private router: Router) {
     this.update();
+  }
+
+  /**
+   * ngOnInit required as this class implements the OnInit interface
+   * We check for the existance of a URL parameter which represents the ID of a customer
+   * If no id is given, nothing is loaded, and a message logged,
+   * If Id is given, we pass it as a paremeter to the profile component to populate the view.
+   */
+  public ngOnInit() {
+    this.aroute.params.forEach((params: Params) => {
+     let id = params['id'];
+     if(id === undefined) {
+       console.log('no id params, loading general');
+       return;
+     }
+    //  this.customerId = id;
+     this.customerSelected = true;
+   });
   }
 
   public update() {
@@ -58,6 +84,7 @@ export class CustomersComponent {
     this._customerService.getCustomerList(this.asyncSelectedName, this.asyncSelectedPostcode)
       .subscribe(res => {
         let names = res.map(x => x.firstname + ' ' + x.surname);
+        console.log(names);
 
         // Store the current list, so id can be looked up.
         this.dataSourceList = res;
@@ -93,8 +120,7 @@ export class CustomersComponent {
       return c1 && c2;
     });
 
-    this.customerId = person.id;
-    this.customerSelected = true;
+    this.navigateToId(person.id);
   }
 
    public typeaheadOnSelectPostcode(e:any):void {
@@ -103,9 +129,13 @@ export class CustomersComponent {
     //Search through Orders by Postcode, and request customer details by ID TODO
     let person = this.dataSourceList.find(elem => {
       return elem.postcode === e.item;
-    })
-    this.customerId = person.id;
-    this.customerSelected = true;
+    });
+
+    this.navigateToId(person.id);
+  }
+
+  public navigateToId(id: string) {
+    this.router.navigate(['/customers', id]);
   }
 }
 

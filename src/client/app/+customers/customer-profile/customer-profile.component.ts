@@ -1,5 +1,6 @@
 import { Component, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChange, OnInit} from '@angular/core';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import {TYPEAHEAD_DIRECTIVES} from 'ng2-bootstrap/components/typeahead';
 
 import { Customer } from '../../models/index';
@@ -30,14 +31,25 @@ export class CustomerProfileComponent implements AfterViewInit, OnChanges, OnIni
   @ViewChild('customer_form') customerFormRef: ElementRef;
   customerForm : HTMLFieldSetElement;
 
-  constructor(private customerService: CustomerServiceService, private authservice: AuthService) {}
+  constructor(private customerService: CustomerServiceService,
+              private authservice: AuthService,
+              private aroute: ActivatedRoute,
+              private router: Router) {}
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
     this.getCustomer(this.customerId);
   }
 
   ngOnInit() {
-    
+    this.aroute.params.forEach((params: Params) => {
+     let id = params['id'];
+     if(id === undefined) {
+       console.log('no id params, loading general');
+       return;
+     }
+     this.customerId = id;
+     this.getCustomer(id);
+   });
   }
 
   ngAfterViewInit() {
