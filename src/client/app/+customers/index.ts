@@ -3,4 +3,5 @@
  */
 export * from './customers.component';
 export * from './customers.routes';
+export * from './customer-service/index';
 

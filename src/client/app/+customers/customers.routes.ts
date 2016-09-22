@@ -12,6 +12,6 @@ export const CustomersRoutes: RouterConfig = [
   {
     path: 'customers/:id',
     component: CustomersComponent,
-    canDeactivate: [CanDeactivateGuard]
+    // canDeactivate: [CanDeactivateGuard]
   }
 ];

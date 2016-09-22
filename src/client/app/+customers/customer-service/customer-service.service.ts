@@ -29,11 +29,23 @@ export class CustomerServiceService {
 
   /**
    * getCustomerList sends a HTTP GET request to the REST server
-   * @return Observable<Response> with modified error handler and token as the data  
+   * @return Observable<Response> with modified error handler and token as the data
+   *         Should only contain customerses: id, firstname, surname ,postcode.  
    */
   public getCustomerList(name: string, postcode:string) : Observable<any[]> {
     console.log('Getting customer list', name, postcode);
     return this.authhttp.get(this.Uri+'api/customer/list?name=' + name + '&postcode=' + postcode )
+                  .map(res => res.json() || {})
+  }
+
+  /**
+   * getCustomerListFull sends a HTTP GET request to the REST server
+   * @return Observable<Response> with error handler and token as the data
+   *         Should contain customerses: id, firstname, surname, postcode, email, notes, number of Orders
+   */
+  public getCustomerListFull() : Observable<any[]> {
+    console.log('Getting customer list full');
+    return this.authhttp.get(this.Uri+'api/customer/fulllist')
                   .map(res => res.json() || {})
   }
 

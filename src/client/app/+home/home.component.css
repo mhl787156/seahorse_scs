@@ -18,6 +18,14 @@ ul {
   width: 50%;
 }
 
+.table-container {
+  margin: 10px;
+  padding: 10px;
+  height: 80%;
+  border: solid black 1px;
+  overflow: scroll;
+}
+
 .rightBox {
   float: right;
   width: 50%;

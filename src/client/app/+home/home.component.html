@@ -9,7 +9,30 @@
               [routerLink]="['/customers']">
               Search Customers
       </button>
-   
+
+      <!--New Component for the Recent Customers Display-->
+      <div class="table-container">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>ID(6)</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Name</th>
+              <th>Postcode</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let o of recentCustomers" (click)="onCustomerClick(o)">
+              <td>{{o.id.substring(0,6)}}</td>
+              <td>{{o.date}}</td>
+              <td>{{o.status}}</td>
+              <td>{{o.firstname}} {{o.surname}}</td>
+              <td>{{o.postcode}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
   </section>
 </section>

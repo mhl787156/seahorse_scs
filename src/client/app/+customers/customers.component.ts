@@ -8,7 +8,10 @@ import { CustomerServiceService } from './customer-service/index';
 import { CustomerProfileComponent } from './customer-profile/index';
 
 /**
- * This class represents the lazy loaded AboutComponent.
+ * This Component represents the customer find component.
+ * Also acts as the frame for the profile componet which displays a customers data.
+ * 
+ * Includes a dynamic selection box for choosing/ searching for a customer.
  */
 @Component({
   moduleId: module.id,
@@ -63,10 +66,17 @@ export class CustomersComponent implements OnInit{
    });
   }
 
+  /**
+   * update populates the dynamic search bars with up to date information
+   */
   public update() {
     this.getAsyncData();
   }
 
+  /**
+   * newCustomer asynchronously gets a new customer from the server.
+   * A new Customer is created on the server
+   */
   public newCustomer(){
     this._customerService.newCustomer()
           .subscribe(
@@ -80,6 +90,9 @@ export class CustomersComponent implements OnInit{
           );
   }
 
+  /**
+   * getAsyncData gets the list of customers from the server
+   */
   public getAsyncData() :void {
     this._customerService.getCustomerList(this.asyncSelectedName, this.asyncSelectedPostcode)
       .subscribe(res => {
@@ -97,14 +110,23 @@ export class CustomersComponent implements OnInit{
       });
   }
 
+  /**
+   * typeahead loading
+   */
   public changeTypeaheadLoading(e:boolean):void {
     this.typeaheadLoading = e;
   }
 
+  /**
+   * typeahead no results
+   */
   public changeTypeaheadNoResults(e:boolean):void {
     this.typeaheadNoResults = e;
   }
 
+  /**
+   * typeahead what happens when a name is selected
+   */
   public typeaheadOnSelectName(e:any):void {
     console.log(`Selected Name value: ${e.item}`);
 
@@ -123,6 +145,9 @@ export class CustomersComponent implements OnInit{
     this.navigateToId(person.id);
   }
 
+  /**
+   * typeahead what happens when a postcode is selected
+   */
    public typeaheadOnSelectPostcode(e:any):void {
     console.log(`Selected Postcode value: ${e.item}`);
 
@@ -134,11 +159,17 @@ export class CustomersComponent implements OnInit{
     this.navigateToId(person.id);
   }
 
+  /**
+   * Navigate to a customers information page.
+   */
   public navigateToId(id: string) {
     this.router.navigate(['/customers', id]);
   }
 }
 
+/**
+ * The format of the list that is returned from the server.
+ */
 interface CustomerListReturnType {
   id: string;
   firstname: string;

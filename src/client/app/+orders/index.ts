@@ -3,4 +3,5 @@
  */
 export * from './orders.component';
 export * from './orders.routes';
+export * from './order-service/index';
 
