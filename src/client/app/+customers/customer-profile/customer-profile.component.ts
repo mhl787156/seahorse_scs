@@ -84,6 +84,7 @@ export class CustomerProfileComponent implements AfterViewInit, OnChanges, OnIni
       .subscribe(
         res => {
           this.customer = res;
+          this.customer.last_viewed = Date.now();
         },
         err => console.log(err),
         () => console.log('Get ' + id + ' Customer Request Completed')
@@ -95,6 +96,7 @@ export class CustomerProfileComponent implements AfterViewInit, OnChanges, OnIni
    */
   saveCustomer() {
     this.customer.active = true;
+    this.customer.last_viewed = Date.now();
     this.customerService.updateCustomer(this.customer).subscribe(
       res => console.log,
       err => console.log(err),

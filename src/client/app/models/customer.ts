@@ -1,6 +1,7 @@
 export class Customer {
     id        :string;
-	date_added :string;
+	date_added :number;
+	last_viewed :number;
 
 	firstname :string;
 	surname   :string;
@@ -25,7 +26,8 @@ export class Customer {
 
 	constructor() {
 		this.id = 'default';
-		this.date_added = '';
+		this.date_added = Date.now();
+		this.last_viewed = Date.now();
 		this.firstname = '';
 		this.surname = '';
 		this.company_name = '';

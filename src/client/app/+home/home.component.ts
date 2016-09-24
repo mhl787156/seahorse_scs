@@ -43,11 +43,10 @@ export class HomeComponent implements OnInit{
     this.customerService.getCustomerListFull()
       .subscribe(
           data => {
-            console.log('data', data);
             this.recentCustomers = data;
           },
           err => console.log(err),
-          () => console.log('New Customer Request Complete')
+          () => console.log('Customer List Request Complete')
         );
   }
 

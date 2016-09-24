@@ -84,6 +84,7 @@ export class CustomersComponent implements OnInit{
               console.log('data', data);
               this.customerId = data;
               this.customerSelected = true;
+              this.router.navigate(['/customers', this.customerId]);
             },
             err => console.log(err),
             () => console.log('New Customer Request Complete')

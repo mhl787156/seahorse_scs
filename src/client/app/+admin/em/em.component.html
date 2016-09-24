@@ -1,6 +1,108 @@
 <div class="new-user-container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h2 class="form-signin-heading">Create a New User</h2>
+    </div>
+    <div class="col-sm-6">   
+      <button class="btn btn-primary" type="button" (click)="toggleUserOpenSave()"> {{newUserButtonValue}} </button>
+    </div>
+  </div>
+  <form class="form-horizontal" *ngIf="newUserOpen">
+    <fieldset #user_form id="user_form">
+          
+          <!--User Details-->
+          <div class="container-fluid">
+              <div class="row">
+                  <!--First Column-->
+                  <div class="col-sm-6">
+
+                      <!--ID Static Show-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="firstNameInput">ID</label>
+                          <div class="col-sm-10">
+                              <p class="form-control-static">{{user.id}}</p>
+                          </div>
+                      </div>
+
+                      
+                      <!--Admin Input-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="adminInput">Admin</label>
+                          <div class="col-sm-10">
+                              <input type="checkbox" id="adminInput" class="form-control" 
+                                  [(ngModel)]="user.admin" name="adminInput" #admin="ngModel">
+                          </div>
+                      </div>
+
+
+                      <!--First Name Input-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="firstNameInput">First Name</label>
+                          <div class="col-sm-10">
+                              <input type="text" id="firstNameInput" class="form-control" 
+                                  [(ngModel)]="user.firstname" name="firstNameInput" #fname="ngModel">
+                          </div>
+                      </div>
+
+                      <!--Second Name Input-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="surnameNameInput">Surname</label>
+                          <div class="col-sm-10">
+                              <input type="text" id="surnameNameInput" class="form-control" 
+                                  [(ngModel)]="user.surname" name="surnameNameInput" #sname="ngModel">
+                          </div>
+                      </div>
+
+                  </div>
+                  <div class="col-sm-6">
+
+                      <!--Address Name Input-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="addressInput">Address</label>
+                          <div class="col-sm-10">
+                              <textarea type="text" id="addressInput" class="form-control" 
+                                  [(ngModel)]="user.address" name="addressInput" #address="ngModel">
+                              </textarea>
+                          </div>
+                      </div>
+
+                      <!--Postcode Name Input-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="postcodeInput">Postcode</label>
+                          <div class="col-sm-10">
+                              <input type="text" id="postcodeInput" class="form-control" 
+                                  [(ngModel)]="user.postcode" name="postcodeInput" #postcode="ngModel">
+                          </div>
+                      </div>
+
+                      <!--Email Name Input-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="emailInput">Email</label>
+                          <div class="col-sm-10">
+                              <input type="text" id="emailInput" class="form-control" 
+                                  [(ngModel)]="user.email" name="emailInput" #email="ngModel">
+                          </div>
+                      </div>
+                      
+                      <!--MobilePhone Name Input-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label" for="mobilephoneInput">Mobile Phone</label>
+                          <div class="col-sm-10">
+                              <input type="text" id="mobilephoneInput" class="form-control" 
+                                  [(ngModel)]="user.mobile_phone" name="mobilephoneInput" #mobilephone="ngModel">
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+      </fieldset>
+  </form>
+
+  <hr>
+
   <form class="form-inline" (submit)="submitNewUser()" #newUserForm="ngForm">
-    <h2 class="form-signin-heading">New User details</h2>
+    <h2 class="form-signin-heading">Give Admin Access</h2>
       
     <div class="form-group">
       <label for="inputUserName" class="sr-only">UserName</label>

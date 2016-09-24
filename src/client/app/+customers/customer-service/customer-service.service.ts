@@ -80,6 +80,5 @@ export class CustomerServiceService {
     return this.authhttp.post(this.Uri + 'api/customer/update', JSON.stringify(cus))
               .map(res => res.json() || {} );
   }
-
 }
 
