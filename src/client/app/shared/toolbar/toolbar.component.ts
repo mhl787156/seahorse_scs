@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * This class represents the toolbar component.
@@ -9,6 +9,9 @@ import { Component} from '@angular/core';
   templateUrl: 'toolbar.component.html',
   styleUrls: ['toolbar.component.css']
 })
-
-export class ToolbarComponent {}
-
+export class ToolbarComponent {
+  public logout() {
+    localStorage.removeItem('id_token');
+    location.reload();
+  }
+}

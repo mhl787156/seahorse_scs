@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NameListService } from '../shared/index';
+import { Router } from '@angular/router';
+
 
 /**
  * This class represents the lazy loaded HomeComponent.
@@ -10,48 +11,58 @@ import { NameListService } from '../shared/index';
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
 })
-
 export class HomeComponent implements OnInit {
 
-  newName: string = '';
-  errorMessage: string;
-  names: any[] = [];
+  newName: string;
+  recentCustomers: DataCustomers[] = [];
+  recentOrders: DataOrders[] = [];
+
+  constructor(
+    // public customerService: CustomerServiceService,
+              // public orderService: OrderService,
+              private router: Router) {}
 
   /**
-   * Creates an instance of the HomeComponent with the injected
-   * NameListService.
-   *
-   * @param {NameListService} nameListService - The injected NameListService.
-   */
-  constructor(public nameListService: NameListService) {}
-
-  /**
-   * Get the names OnInit
+   * Populates all the tables
    */
   ngOnInit() {
-    this.getNames();
+    this.getRecentCustomers();
+    this.getRecentOrders();
   }
 
   /**
-   * Handle the nameListService observable
+   * Gets the list of Recent Customers and populates the list;
    */
-  getNames() {
-    this.nameListService.get()
-		     .subscribe(
-		       names => this.names = names,
-		       error =>  this.errorMessage = <any>error
-		       );
+  getRecentCustomers() {
+    // this.customerService.getCustomerListFull()
+    //   .subscribe(
+    //       data => {
+    //         this.recentCustomers = data;
+    //       },
+    //       err => console.log(err),
+    //       () => console.log('Customer List Request Complete')
+    //     ); 
   }
 
-  /**
-   * Pushes a new name onto the names array
-   * @return {boolean} false to prevent default form submit behavior to refresh the page.
-   */
-  addName(): boolean {
-    // TODO: implement nameListService.post
-    this.names.push(this.newName);
-    this.newName = '';
-    return false;
+  getRecentOrders() {
+    return;
+  }
+
+  onCustomerClick(cus:DataCustomers) {
+    this.router.navigate(['/customers', cus.id]);
   }
 
 }
+
+
+interface DataCustomers {
+  id: string;
+  firstname: string;
+  surname: string;
+  postcode: string;
+}
+
+interface DataOrders {
+
+}
+

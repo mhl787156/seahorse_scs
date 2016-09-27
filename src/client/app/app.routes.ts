@@ -1,9 +1,24 @@
 import { Routes } from '@angular/router';
 
-import { AboutRoutes } from './about/index';
 import { HomeRoutes } from './home/index';
+import { CustomersRoutes } from './customers/index';
 
-export const routes: Routes = [
+import { AuthGuardService } from './shared/index';
+
+const normalroutes: Routes = [
   ...HomeRoutes,
-  ...AboutRoutes
 ];
+
+const loginroutes: Routes = [
+  ...CustomersRoutes
+];
+
+function makeRoutes() : Routes {
+  let lr = loginroutes.map(conf => {
+              conf.canActivate = [AuthGuardService];
+              return conf;
+           });
+  return normalroutes.concat(lr);
+}
+
+export const routes = makeRoutes();

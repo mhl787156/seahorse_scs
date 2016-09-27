@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 /**
  * This class represents the navigation bar component.
@@ -9,5 +10,15 @@ import { Component } from '@angular/core';
   templateUrl: 'navbar.component.html',
   styleUrls: ['navbar.component.css'],
 })
+export class NavbarComponent {
+  public currentTab: number = 0;
 
-export class NavbarComponent {}
+  public changeTab(n: number) {
+    this.currentTab = n;
+  }
+
+  public isCurrentTab(n: number): boolean {
+    return this.currentTab === n;
+  }
+
+}

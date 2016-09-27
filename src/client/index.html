@@ -23,7 +23,11 @@
   <!-- endinject -->
 
   <% if (ENV === 'dev') { %>
-  <script src="<%= APP_BASE %>app/system-config.js"></script>
+  <script>
+    System.config(<%=
+      JSON.stringify(SYSTEM_CONFIG, null, 2)
+    %>)
+  </script>
   <% } %>
 
   <!-- libs:js -->
@@ -31,6 +35,8 @@
 
   <!-- inject:js -->
   <!-- endinject -->
+  <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <% if (ENV === 'dev') { %>
   <script>

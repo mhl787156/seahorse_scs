@@ -12,20 +12,18 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 
-import { NameListService } from '../shared/index';
-import { HomeModule } from './home.module';
+import { CustomerService } from '../customer-service/index';
+import { CustomerProfileComponent } from './customer-profile.component';
 
 export function main() {
-  describe('Home component', () => {
+  describe('Customer Profile component', () => {
     // setting module for testing
     // Disable old forms
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [FormsModule, RouterModule, HttpModule, HomeModule],
+        imports: [FormsModule, RouterModule, HttpModule, CustomerProfileComponent],
         declarations: [TestComponent],
         providers: [
-          NameListService,
-          OrderService,
           CustomerService,
           BaseRequestOptions,
           MockBackend,
@@ -46,10 +44,10 @@ export function main() {
             let fixture = TestBed.createComponent(TestComponent);
             fixture.detectChanges();
 
-            let homeInstance = fixture.debugElement.children[0].componentInstance;
-            let homeDOMEl = fixture.debugElement.children[0].nativeElement;
+            let cpInstance = fixture.debugElement.children[0].componentInstance;
+            let cpDOMEl = fixture.debugElement.children[0].nativeElement;
 
-            expect(homeInstance.orderService).toEqual(jasmine.any(OrderService));
+            expect(cpInstance.customerService).toEqual(jasmine.any(CustomerService));
             // expect(homeDOMEl.querySelectorAll('li').length).toEqual(0);
 
             // homeInstance.newName = 'Minko';
