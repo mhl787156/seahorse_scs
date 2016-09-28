@@ -1,10 +1,10 @@
-import { RouterConfig } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { CustomersComponent } from './index';
 
-import { CanDeactivateGuard } from '../shared/index';
+// import { CanDeactivateGuard } from '../shared/index';
 
-export const CustomersRoutes: RouterConfig = [
+export const CustomersRoutes: Routes = [
   {
     path: 'customers',
     component: CustomersComponent,

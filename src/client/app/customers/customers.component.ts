@@ -8,7 +8,7 @@ import { CustomerService } from './customer-service/index';
  * This Component represents the customer find component.
  * Also acts as the frame for the profile componet which displays a customers data.
  * 
- * Includes a dynamic selection box for choosing/ searching for a customer.
+ * Includes a dynamic selection box for choosing searching for a customer.
  */
 @Component({
   moduleId: module.id,
@@ -18,7 +18,7 @@ import { CustomerService } from './customer-service/index';
   // directives: [TYPEAHEAD_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, CustomerProfileComponent],
   providers: [CustomerService]
 })
-export class CustomersComponent implements OnInit{
+export class CustomersComponent implements OnInit {
   public asyncSelectedName: string = '';
   public asyncSelectedPostcode:string = '';
 
@@ -27,29 +27,28 @@ export class CustomersComponent implements OnInit{
   public dataSourceName: string[];
   public dataSourcePostcode: string[];
 
-  public typeaheadLoading:boolean = false;
-  public typeaheadNoResults:boolean = false;
+  public typeaheadLoading: boolean = false;
+  public typeaheadNoResults: boolean = false;
 
   public customerSelected: boolean = false;
   public customerId: string;
 
   /**
-   * Constructor. Sets up the routers for use, and populates the dynamic lookup
+   * Constructor. Sets up the routers for use
    * @param customerService: provides the customer service service for use
    * @param aroute: provides access to the URL parameter
    * @param router: provides access to the Router to route on customer ID
    */
   public constructor(private customerService: CustomerService,
                      private aroute: ActivatedRoute,
-                     private router: Router) {
-    this.update();
-  }
+                     private router: Router) { }
 
   /**
    * ngOnInit required as this class implements the OnInit interface
    * We check for the existance of a URL parameter which represents the ID of a customer
    * If no id is given, nothing is loaded, and a message logged,
    * If Id is given, we pass it as a paremeter to the profile component to populate the view.
+   * The dynamic view is then populated at the end.
    */
   public ngOnInit() {
     this.aroute.params.forEach((params: Params) => {
@@ -61,6 +60,8 @@ export class CustomersComponent implements OnInit{
     //  this.customerId = id;
      this.customerSelected = true;
    });
+
+   this.update();
   }
 
   /**
@@ -74,7 +75,7 @@ export class CustomersComponent implements OnInit{
    * newCustomer asynchronously gets a new customer from the server.
    * A new Customer is created on the server
    */
-  public newCustomer(){
+  public newCustomer() {
     this.customerService.newCustomer()
           .subscribe(
             data => {
